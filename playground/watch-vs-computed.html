@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <button v-on:click="addNum">increase</button>
+        {{ num }}
+
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                num: 10
+            },
+            // 단순한 로직(공식 문서에서는 꼭 watch를 사용해야 하는 상황이 아니면 computed 사용 권고)
+            // ex) 유효성 체크, 단순 값 연산
+            computed: {
+                doubleNum: function() {
+                    return this.num * 2;
+                }
+            },
+            // 복잡한 로직
+            // ex) 데이터 요청, methods와 엮어서 활용
+            watch: {
+                num: function(newValue, oldValue) {
+                    this.fetchUserByNumber(newValue);
+                }
+            },
+            methods: {
+                addNum: function() {
+                    this.num = this.num + 1;
+                },
+                fetchUserByNumber: function(num) {
+                    console.log(num);
+                }
+            }
+
+        });
+
+    </script>
+</body>
+</html>

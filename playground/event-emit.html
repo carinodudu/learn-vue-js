@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div id="app">
+
+        <!-- <app-header v-on:하위 컴포넌트에서 발생한 이벤트 이름="상위 컴포넌트의 메소드 이름"></app-header> -->
+        <app-header v-on:pass="logText"></app-header>
+        <app-content v-on:increase="increaseOne"></app-content>
+        <p>{{ num }}</p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        // 'appHeader' 컴포넌트 객체 생성
+        var appHeader = {
+            // 'click'이 발생했을 때 'passEvent' 호출
+            template: '<button v-on:click="passEvent">click me</button>',
+            
+            methods: {
+                passEvent: function() {
+                    // 현재 객체에서 'pass' 이벤트 발생 시키기
+                    this.$emit('pass');
+                }
+            }
+        }
+        var appContent = {
+            // 'click'이 발생했을 때 'addNumber' 호출
+            template: '<button v-on:click="addNumber">add</button>',
+            
+            methods: {
+                addNumber: function() {
+                    // 현재 객체에서 'increase' 이벤트 발생 시키기
+                    this.$emit('increase');
+                }
+            }
+        }
+
+        new Vue({
+            el: '#app',
+
+            components: {
+                'app-header': appHeader,
+                'app-content': appContent
+            },
+
+            methods: {
+                logText: function() {
+                    console.log('hi');
+                },
+                increaseOne: function() {
+                    this.num = this.num + 1;
+                }
+            },
+
+            data: {
+                num: 10
+            }
+        })
+
+    </script>
+
+</body>
+</html>

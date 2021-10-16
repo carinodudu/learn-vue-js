@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/t01.css" type="text/css" rel="stylesheet"/>
+    <title>t01-지역 컴포넌트 활용한 페이지 구성하기</title>
+</head>
+
+<body>
+    <div id="app">
+        <app-header></app-header>
+
+        <app-nav></app-nav>
+    
+        <app-section></app-section>
+
+        <app-footer></app-footer>
+    </div>
+
+    <!-- 스크립트 시작 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        /**
+         * t01-지역 컴포넌트 활용한 페이지 구성하기
+         * 제출기한: 2021.09.15(수)
+         * */
+
+        // Vue 인스턴스 생성
+        var vm = new Vue({
+            // id="app"인 요소에 인스터스 생성
+            el: '#app',
+
+            // 지역 컴포넌트 생성
+            components: {
+                'app-header': {
+                    template: '<header>여기가 Vue 맛집!</header>'
+                },
+                'app-nav': {
+                    template: '<nav><a href="#">Home</a> <a href="#">About</a> <a href="#">Contact</a></nav>'
+                },
+                'app-section': {
+                    template: '<section>한살림에 오신 것을 환영합니다.</section>'
+                },
+                'app-footer': {
+                    template: '<footer>(주)한살림사업연합</footer>'
+                }
+
+
+            }
+        });
+    </script>
+    <!-- 스크립트 종료 -->
+</body>
+</html>
