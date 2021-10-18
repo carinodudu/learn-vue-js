@@ -29,13 +29,14 @@ export default {
         username: this.username,
         password: this.password
       }
+      // http 프로토콜을 사용한 브라우저에서 서버로 데이터 통신을 위한 라이브러리
       axios.post(url, data)
         .then(function(response){
           console.log(response);
         })
         .catch(function(error) {
           console.log(error);
-        }); // http 프로토콜을 사용한 브라우저에서 서버로 데이터 통신을 위한 라이브러리
+        });
     }
   }
 }
