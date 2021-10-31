@@ -16,11 +16,19 @@ export default {
     },
     methods: {
         addTodo: function() {
-            localStorage.setItem(this.newTodoItem, this.newTodoItem);
+          if(this.newTodoItem !== '') {
+            var obj = {
+              completed: false,
+              item: this.newTodoItem
+            };
+            // 객체를 문자열로 변경하여 넣어주어야 함.
+            localStorage.setItem(this.newTodoItem, JSON.stringify(obj));
             this.clearInput();
+          }
+          
         },
         clearInput: function() {
-            this.newTodoItem = '';
+          this.newTodoItem = '';
         }
     }
 }
