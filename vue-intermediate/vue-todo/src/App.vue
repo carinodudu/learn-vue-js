@@ -1,9 +1,16 @@
 <template>
   <div id="app">
     <TodoHeader></TodoHeader>
-    <TodoInput></TodoInput>
-    <TodoList></TodoList>
-    <TodoFooter></TodoFooter>
+    <!-- <TodoInput v-on:하위 컴포넌트에서 발생한 이벤트 이름="현재 컴포넌트의 메소드 이름"></TodoInput> -->
+    <TodoInput v-on:addTodoItem="addOneItem"></TodoInput>
+    <!-- <TodoList v-bind:하위 컴포넌트의 프롭스 속성 이름="현재 컴포넌트의 데이터 이름"></TodoList> -->
+    <TodoList 
+      v-bind:propsdata="todoItems" 
+      v-on:removeItem="removeOneItem" 
+      v-on:toggleItem="toggleOneItem"
+    >
+    </TodoList>
+    <TodoFooter v-on:clearAll="clearAllItems"></TodoFooter>
   </div>
 </template>
 
@@ -20,6 +27,45 @@ export default {
     'TodoInput': TodoInput,
     'TodoList': TodoList,
     'TodoFooter': TodoFooter
+  },
+  data: function() {
+    return {
+      todoItems: []
+    }
+  },
+  methods: {
+    addOneItem: function(todoItem) {
+      var obj = {
+        completed: false,
+        item: todoItem
+      };
+      // 객체를 문자열로 변경하여 넣어주어야 함.
+      localStorage.setItem(todoItem, JSON.stringify(obj));
+      this.todoItems.push(obj);
+    },
+    removeOneItem: function(todoItem, index) {
+      localStorage.removeItem(todoItem.item);
+      this.todoItems.splice(index, 1);
+    },
+    toggleOneItem: function(todoItem) {
+      // 직접 하위 컴포넌트의 데이터를 수정하는 것보다 하위 컴포넌트의 프롭스데이터로 받아온 현재 컴포넌트의 데이터를 수정하는 것이 컴포넌트간의 간섭도를 낮춤
+      // this.todoItems[index].completed = !this.todoItems[index].completed;
+      todoItem.completed = !todoItem.completed;
+      localStorage.removeItem(todoItem.item);
+      localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
+    },
+    clearAllItems: function() {
+      localStorage.clear();
+      this.todoItems = [];
+    }
+  },
+  created: function() {
+    if(localStorage.length > 0) {
+      for(var i=0; i<localStorage.length; i++) {
+        if(localStorage.key(i) !== 'loglevel:webpack-dev-server')
+          this.todoItems.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
+      }
+    }
   }
 }
 </script>

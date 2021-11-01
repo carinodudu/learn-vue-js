@@ -17,15 +17,10 @@ export default {
     methods: {
         addTodo: function() {
           if(this.newTodoItem !== '') {
-            var obj = {
-              completed: false,
-              item: this.newTodoItem
-            };
-            // 객체를 문자열로 변경하여 넣어주어야 함.
-            localStorage.setItem(this.newTodoItem, JSON.stringify(obj));
+            // this.$emit('이벤트이름', 파라미터1, 파라미터2, ...);
+            this.$emit('addTodoItem', this.newTodoItem);
             this.clearInput();
           }
-          
         },
         clearInput: function() {
           this.newTodoItem = '';
