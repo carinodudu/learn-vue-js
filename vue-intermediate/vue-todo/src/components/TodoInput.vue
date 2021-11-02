@@ -4,14 +4,35 @@
       <span class="addContainer" v-on:click="addTodo">
           <i class="fas fa-plus addBtn"></i>
       </span>
+
+      <Modal v-if="showModal" @close="showModal = false">
+        <!--
+          <div slot="상위컴포넌트의 slot태그의 name속성값">
+            하위 컴포넌트에서 재정의
+          </div>
+        -->
+        <h3 slot="header">
+          경고!
+          <i class="closeModalBtn fas fa-times-circle" @click="showModal = false"></i>
+        </h3>
+        <div slot="body">
+          값을 입력하세요.
+        </div>
+        <div slot="footer">
+          copy right
+        </div>
+      </Modal>
   </div>
 </template>
 
 <script>
+import Modal from './common/Modal.vue';
+
 export default {
     data: function() {
         return {
-            newTodoItem: ''
+            newTodoItem: '',
+            showModal: false
         }
     },
     methods: {
@@ -20,11 +41,16 @@ export default {
             // this.$emit('이벤트이름', 파라미터1, 파라미터2, ...);
             this.$emit('addTodoItem', this.newTodoItem);
             this.clearInput();
+          } else {
+            this.showModal = !this.showModal;
           }
         },
         clearInput: function() {
           this.newTodoItem = '';
         }
+    },
+    components: {
+      Modal: Modal
     }
 }
 </script>
