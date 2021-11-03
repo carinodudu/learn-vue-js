@@ -16,19 +16,19 @@
           </span>
 
           <Modal v-if="showModal" @close="showModal = false">
-          <!--
-            <div slot="상위컴포넌트의 slot태그의 name속성값">
-              하위 컴포넌트에서 재정의
+            <!--
+              <div slot="상위컴포넌트의 slot태그의 name속성값">
+                하위 컴포넌트에서 재정의
+              </div>
+            -->
+            <h3 slot="header">
+              {{ propsmodalItem }}
+              <i class="closeModalBtn fas fa-times-circle" @click="showModal = false"></i>
+            </h3>
+            <div slot="body">
+              {{ propsmodalDetail }}
             </div>
-          -->
-          <h3 slot="header">
-            {{ propsmodalItem }}
-            <i class="closeModalBtn fas fa-times-circle" @click="showModal = false"></i>
-          </h3>
-          <div slot="body">
-            {{ propsmodalDetail }}
-          </div>
-        </Modal>
+          </Modal>
 
       </li>
 
