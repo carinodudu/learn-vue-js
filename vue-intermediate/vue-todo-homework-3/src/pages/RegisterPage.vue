@@ -27,6 +27,8 @@ export default {
             };
             // 객체를 문자열로 변경하여 넣어주어야 함.
             localStorage.setItem(todoItem, JSON.stringify(obj));
+            // $router를 통해 익명 라우터 접근 -> 강의에는 없는 내용...
+            this.$router.push({ path: 'list'});
         },
     },
 }
