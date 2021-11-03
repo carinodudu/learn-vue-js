@@ -18,12 +18,6 @@ export default {
         'TodoInput': TodoInput,
     },
 
-    data: function() {
-        return {
-            todoItems: []
-        }
-    },
-
     methods: {
         addOneItem: function(todoItem, todoItemDetail) {
             var obj = {
@@ -33,7 +27,6 @@ export default {
             };
             // 객체를 문자열로 변경하여 넣어주어야 함.
             localStorage.setItem(todoItem, JSON.stringify(obj));
-            this.todoItems.push(obj);
         },
     },
 }
