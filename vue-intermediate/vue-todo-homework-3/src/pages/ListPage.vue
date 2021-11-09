@@ -5,11 +5,8 @@
     <!-- <TodoList v-bind:하위 컴포넌트의 프롭스 속성 이름="현재 컴포넌트의 데이터 이름"></TodoList> -->
     <TodoList 
       v-bind:propsdata="todoItems"
-      v-bind:propsmodalItem="modalItem"
-      v-bind:propsmodalDetail="modalDetail"
       v-on:removeItem="removeOneItem" 
       v-on:toggleItem="toggleOneItem"
-      v-on:getModaldata="getModalOneItem"
     >
     </TodoList>
     <TodoFooter v-on:clearAll="clearAllItems"></TodoFooter>
@@ -30,9 +27,7 @@ export default {
 
   data: function() {
     return {
-      todoItems: [],
-      modalItem: '',
-      modalDetail: ''
+      todoItems: []
     }
   },
 
@@ -48,10 +43,6 @@ export default {
       todoItem.completed = !todoItem.completed;
       localStorage.removeItem(todoItem.item);
       localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
-    },
-    getModalOneItem: function(todoItem) {
-      this.modalItem = todoItem.item;
-      this.modalDetail = todoItem.detail;
     },
     clearAllItems: function() {
       localStorage.clear();

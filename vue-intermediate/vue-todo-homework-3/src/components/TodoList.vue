@@ -7,7 +7,7 @@
           >
           </i>
           <!-- v-bind:class="{클래스명: boolean값을 갖는 변수}" 변수 값에 따라 클래스가 적용 처리 -->
-          <span v-bind:class="{textCompleted: todoItem.completed}" @click="modalPopup(todoItem)">
+          <span v-bind:class="{textCompleted: todoItem.completed}" @click="popModal(todoItem)">
             {{ todoItem.item }}
           </span>
           
@@ -22,11 +22,11 @@
               </div>
             -->
             <h3 slot="header">
-              {{ propsmodalItem }}
+              {{ item }}
               <i class="closeModalBtn fas fa-times-circle" @click="showModal = false"></i>
             </h3>
             <div slot="body">
-              {{ propsmodalDetail }}
+              {{ detail }}
             </div>
           </Modal>
 
@@ -43,7 +43,7 @@
 import Modal from './common/Modal.vue';
 
 export default {
-  props: ['propsdata', 'propsmodalItem', 'propsmodalDetail'],
+  props: ['propsdata'],
 
   components: {
     Modal: Modal
@@ -51,7 +51,9 @@ export default {
 
   data: function() {
     return {
-        showModal: false
+        showModal: false,
+        item: '',
+        detail: ''
     }
   },
 
@@ -62,8 +64,9 @@ export default {
     toggleComplete: function(todoItem) {
       this.$emit('toggleItem', todoItem);
     },
-    modalPopup: function(todoItem) {
-      this.$emit('getModaldata', todoItem);
+    popModal: function(todoItem) {
+      this.item = todoItem.item;
+      this.detail = todoItem.detail;
       this.showModal = !this.showModal;
     }
   }
