@@ -15,12 +15,13 @@ export default {
     name: 'RegisterPage',
 
     components: {
-        'TodoInput': TodoInput,
+        TodoInput // 'TodoInput': TodoInput,
     },
 
     methods: {
-        addOneItem: function(todoItem, todoItemDetail) {
-            var obj = {
+        addOneItem(todoItem, todoItemDetail) {
+            // var obj es6문법 적용 const타입은 값을 변경할 수 없는 상수, 객체 내부의 값은 변경 가능
+            const obj = {
                 completed: false,
                 item: todoItem,
                 detail: todoItemDetail

@@ -9,7 +9,8 @@
 <script>
 export default {
   methods: {
-    clearTodo: function() {
+    // es6 문법 적용으로 :function 생략
+    clearTodo() {
       this.$emit('clearAll');
     }
   }

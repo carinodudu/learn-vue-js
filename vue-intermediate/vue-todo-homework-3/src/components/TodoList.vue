@@ -32,10 +32,8 @@
 
       </li>
 
-
     </transition-group>
 
-      
   </div>
 </template>
 
@@ -46,10 +44,10 @@ export default {
   props: ['propsdata'],
 
   components: {
-    Modal: Modal
+    Modal // Modal: Modal
   },
 
-  data: function() {
+  data() {
     return {
         showModal: false,
         item: '',
@@ -58,13 +56,13 @@ export default {
   },
 
   methods: {
-    removeTodo: function(todoItem, index) {
+    removeTodo(todoItem, index) {
       this.$emit('removeItem', todoItem, index);
     },
-    toggleComplete: function(todoItem) {
+    toggleComplete(todoItem) {
       this.$emit('toggleItem', todoItem);
     },
-    popModal: function(todoItem) {
+    popModal(todoItem) {
       this.item = todoItem.item;
       this.detail = todoItem.detail;
       this.showModal = !this.showModal;

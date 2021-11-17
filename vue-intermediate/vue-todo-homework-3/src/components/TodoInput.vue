@@ -33,7 +33,8 @@
 import Modal from './common/Modal.vue';
 
 export default {
-    data: function() {
+    // es6 문법 적용으로 :function 생략
+    data() {
         return {
             newTodoItem: '',
             newTodoItemDetail: '',
@@ -42,7 +43,8 @@ export default {
     },
 
     methods: {
-        addTodo: function() {
+        // es6 문법 적용으로 :function 생략
+        addTodo() {
           if(this.newTodoItem !== '' && this.newTodoItemDetail !== '') {
             // this.$emit('이벤트이름', 파라미터1, 파라미터2, ...);
             this.$emit('addTodoItem', this.newTodoItem, this.newTodoItemDetail);
@@ -51,14 +53,14 @@ export default {
             this.showModal = !this.showModal;
           }
         },
-        clearInput: function() {
+        clearInput() {
           this.newTodoItem = '';
           this.newTodoItemDetail = '';
         }
     },
     
     components: {
-      Modal: Modal
+      Modal // Modal : Modal
     }
 }
 </script>
