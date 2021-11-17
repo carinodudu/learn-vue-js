@@ -54,7 +54,7 @@ export default {
   // es6 문법 적용으로 :function 생략
   created() {
     if(localStorage.length > 0) {
-      for(var i=0; i<localStorage.length; i++) {
+      for(let i=0; i<localStorage.length; i++) {
         if(localStorage.key(i) !== 'loglevel:webpack-dev-server')
           this.todoItems.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
       }
