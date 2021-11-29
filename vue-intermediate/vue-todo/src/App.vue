@@ -2,15 +2,10 @@
   <div id="app">
     <TodoHeader></TodoHeader>
     <!-- <TodoInput v-on:하위 컴포넌트에서 발생한 이벤트 이름="현재 컴포넌트의 메소드 이름"></TodoInput> -->
-    <TodoInput v-on:addTodoItem="addOneItem"></TodoInput>
+    <TodoInput></TodoInput>
     <!-- <TodoList v-bind:하위 컴포넌트의 프롭스 속성 이름="현재 컴포넌트의 데이터 이름"></TodoList> -->
-    <TodoList 
-      v-bind:propsdata="todoItems" 
-      v-on:removeItem="removeOneItem" 
-      v-on:toggleItem="toggleOneItem"
-    >
-    </TodoList>
-    <TodoFooter v-on:clearAll="clearAllItems"></TodoFooter>
+    <TodoList></TodoList>
+    <TodoFooter></TodoFooter>
   </div>
 </template>
 
@@ -28,45 +23,38 @@ export default {
     TodoList,
     TodoFooter
   },
-  data() {
-    return {
-      todoItems: []
-    }
-  },
-  methods: {
-    addOneItem(todoItem) {
-      const obj = {
-        completed: false,
-        item: todoItem
-      };
-      // 객체를 문자열로 변경하여 넣어주어야 함.
-      localStorage.setItem(todoItem, JSON.stringify(obj));
-      this.todoItems.push(obj);
-    },
-    removeOneItem(todoItem, index) {
-      localStorage.removeItem(todoItem.item);
-      this.todoItems.splice(index, 1);
-    },
-    toggleOneItem(todoItem) {
-      // 직접 하위 컴포넌트의 데이터를 수정하는 것보다 하위 컴포넌트의 프롭스데이터로 받아온 현재 컴포넌트의 데이터를 수정하는 것이 컴포넌트간의 간섭도를 낮춤
-      // this.todoItems[index].completed = !this.todoItems[index].completed;
-      todoItem.completed = !todoItem.completed;
-      localStorage.removeItem(todoItem.item);
-      localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
-    },
-    clearAllItems() {
-      localStorage.clear();
-      this.todoItems = [];
-    }
-  },
-  created() {
-    if(localStorage.length > 0) {
-      for(let i=0; i<localStorage.length; i++) {
-        if(localStorage.key(i) !== 'loglevel:webpack-dev-server')
-          this.todoItems.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
-      }
-    }
-  }
+  // data() {
+  //   return {
+  //     todoItems: []
+  //   }
+  // },
+  // methods: {
+  //   addOneItem(todoItem) {
+  //     const obj = {
+  //       completed: false,
+  //       item: todoItem
+  //     };
+  //     // 객체를 문자열로 변경하여 넣어주어야 함.
+  //     localStorage.setItem(todoItem, JSON.stringify(obj));
+  //     this.todoItems.push(obj);
+  //   },
+  //   removeOneItem(todoItem, index) {
+  //     localStorage.removeItem(todoItem.item);
+  //     this.todoItems.splice(index, 1);
+  //   },
+  //   toggleOneItem(todoItem) {
+  //     // 직접 하위 컴포넌트의 데이터를 수정하는 것보다 하위 컴포넌트의 프롭스데이터로 받아온 현재 컴포넌트의 데이터를 수정하는 것이 컴포넌트간의 간섭도를 낮춤
+  //     // this.todoItems[index].completed = !this.todoItems[index].completed;
+  //     todoItem.completed = !todoItem.completed;
+  //     localStorage.removeItem(todoItem.item);
+  //     localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
+  //   },
+  //   clearAllItems() {
+  //     localStorage.clear();
+  //     this.todoItems = [];
+  //   }
+  // },
+
 }
 </script>
 
