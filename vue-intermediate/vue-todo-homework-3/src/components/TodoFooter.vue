@@ -11,7 +11,8 @@ export default {
   methods: {
     // es6 문법 적용으로 :function 생략
     clearTodo() {
-      this.$emit('clearAll');
+      // this.$emit('clearAll');
+      this.$store.commit('clearAllItems');
     }
   }
 

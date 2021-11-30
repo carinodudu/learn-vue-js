@@ -47,8 +47,10 @@ export default {
         addTodo() {
           if(this.newTodoItem !== '' && this.newTodoItemDetail !== '') {
             // this.$emit('이벤트이름', 파라미터1, 파라미터2, ...);
-            this.$emit('addTodoItem', this.newTodoItem, this.newTodoItemDetail);
+            // this.$emit('addTodoItem', this.newTodoItem, this.newTodoItemDetail);
+            this.$store.commit('addOneItem', {item:this.newTodoItem, detail:this.newTodoItemDetail});
             this.clearInput();
+            this.$router.push({ path: 'list'});
           } else {
             this.showModal = !this.showModal;
           }
