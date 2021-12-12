@@ -1,7 +1,7 @@
 <template>
   <div class="clearAllContainder">
     <span class="clearAllBtn" v-on:click="clearTodo">
-      Clear All
+      Clear All ({{ this.$store.getters.getRegisterItemCount }}Items)
     </span>
   </div>
 </template>

@@ -18,7 +18,12 @@ const storage = {
 
 export const store = new Vuex.Store({
     state: {
-        todoItems: storage.fetch()
+        todoItems: storage.fetch(),
+        ratioTextColors: {
+            isGreen: false,
+            isOrange: false,
+            isRed: false
+        }
     },
     mutations: {
         addOneItem(state, payload) {
@@ -46,6 +51,40 @@ export const store = new Vuex.Store({
         clearAllItems(state) {
             localStorage.clear();
             state.todoItems = [];
+        }
+    },
+    getters: {
+        // 등록건수
+        getRegisterItemCount(state) {
+            return state.todoItems.length;
+        },
+        // 완료건수
+        getCompletedItemCount(state) {
+            return state.todoItems.filter(todoItem => todoItem.completed).length;
+        },
+        // 완료율
+        getCompletedRatio(state, getters) {
+            let completedRatio = 0;
+            completedRatio = Math.round(getters.getCompletedItemCount / getters.getRegisterItemCount * 100);
+            return isNaN(completedRatio)? 0 : completedRatio;
+        },
+        // 완료율 텍스트 색상
+        getRatioTextColor(state, getters) {
+            let ratio = getters.getCompletedRatio;
+            
+            state.ratioTextColors.isGreen = false;
+            state.ratioTextColors.isOrange = false;
+            state.ratioTextColors.isRed = false;
+
+            if(ratio >= 80) {
+                state.ratioTextColors.isGreen = true;
+            } else if(ratio >= 40) {
+                state.ratioTextColors.isOrange = true;
+            } else if(ratio >= 0) {
+                state.ratioTextColors.isRed = true;
+            }
+
+            return state.ratioTextColors;
         }
     }
 });
