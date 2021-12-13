@@ -1,9 +1,9 @@
 <template>
   <div>
       <transition-group name="list" tag="ul">
-        <li v-for="(todoItem, index) in this.$store.state.todoItems" v-bind:key="todoItem.item" class="shadow">
+        <li v-for="(todoItem, index) in this.storedTodoItems" v-bind:key="todoItem.item" class="shadow">
           <i class="checkBtn fas fa-check-circle" 
-            v-on:click="toggleComplete(todoItem, index)"
+            v-on:click="toggleComplete({todoItem, index})"
           >
           </i>
           <!-- v-bind:class="{클래스명: boolean값을 갖는 변수}" 변수 값에 따라 클래스가 적용 처리 -->
@@ -11,7 +11,7 @@
             {{ todoItem.item }}
           </span>
           
-          <span class="removeBtn" v-on:click="removeTodo(todoItem, index)">
+          <span class="removeBtn" v-on:click="removeTodo({todoItem, index})">
             <i class="fas fa-trash"></i>
           </span>
         </li>
@@ -20,17 +20,36 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex';
+
+
 export default {
-  
+  // methods: 호출할 때 다시 렌더링
   methods: {
-    removeTodo(todoItem, index) {
-      // this.$emit('removeItem', todoItem, index);
-      this.$store.commit('removeOneItem', {todoItem, index});
-    },
-    toggleComplete(todoItem, index) {
-      // this.$emit('toggleItem', todoItem, index);
-      this.$store.commit('toggleOneItem', {todoItem, index});
-    }
+    // 이벤트 처리 함수명과 스토어 함수명이 다를 경우 객체 형태로 선언
+    ...mapMutations({
+      // 컴포넌트 메소드 명: '스토어의 뮤테이션 명'
+      removeTodo: 'removeOneItem',
+      toggleComplete: 'toggleOneItem'
+    })
+    // removeTodo(todoItem, index) {
+    //   // this.$emit('removeItem', todoItem, index);
+    //   this.$store.commit('removeOneItem', {todoItem, index});
+    // },
+    // toggleComplete(todoItem, index) {
+    //   // this.$emit('toggleItem', todoItem, index);
+    //   this.$store.commit('toggleOneItem', {todoItem, index});
+    // }
+  },
+
+  // computed: 값이 변했을 경우에만 자동으로 다시 렌더링
+  computed: {
+    // todoItems() {
+    //   return this.$store.getters.storedTodoItems;
+    // }
+    ...mapGetters([
+      'storedTodoItems' // 'storedTodoItems' : storedTodoItems 축약
+    ])
   }
 }
 </script>
