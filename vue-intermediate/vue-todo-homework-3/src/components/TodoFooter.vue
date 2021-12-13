@@ -1,21 +1,28 @@
 <template>
   <div class="clearAllContainder">
     <span class="clearAllBtn" v-on:click="clearTodo">
-      Clear All ({{ this.$store.getters.getRegisterItemCount }}Items)
+      Clear All ({{ this.getRegisterItemCount }}Items)
     </span>
   </div>
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex' // mapGetters, mapMutations 적용
+
 export default {
   methods: {
-    // es6 문법 적용으로 :function 생략
-    clearTodo() {
-      // this.$emit('clearAll');
-      this.$store.commit('clearAllItems');
-    }
-  }
+    // mapMutations 적용
+    ...mapMutations({
+      clearTodo: 'clearAllItems'
+    })
+  },
 
+  computed: {
+    // mapGetters 적용
+    ...mapGetters([
+      'getRegisterItemCount'
+    ])
+  }
 }
 </script>
 

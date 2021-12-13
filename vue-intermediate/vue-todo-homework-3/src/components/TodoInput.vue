@@ -2,7 +2,7 @@
   <div>
 
     <div class="inputBox shadow">
-      <input type="text" placeholder="할 일 제목을 입력하세요." v-model="newTodoItem" v-on:keyup.enter="addTodo">
+      <input type="text" placeholder="할 일 제목을 입력하세요." v-model="newTodoItem" v-on:keyup.enter="addTodo()">
         <span class="addContainer" v-on:click="addTodo">
             <i class="addBtn fas fa-plus"></i>
         </span>
@@ -30,10 +30,10 @@
 </template>
 
 <script>
-import Modal from './common/Modal.vue';
+import Modal from './common/Modal.vue'
+import { mapMutations } from 'vuex' // mapMutations 적용
 
 export default {
-    // es6 문법 적용으로 :function 생략
     data() {
         return {
             newTodoItem: '',
@@ -43,22 +43,23 @@ export default {
     },
 
     methods: {
-        // es6 문법 적용으로 :function 생략
-        addTodo() {
-          if(this.newTodoItem !== '' && this.newTodoItemDetail !== '') {
-            // this.$emit('이벤트이름', 파라미터1, 파라미터2, ...);
-            // this.$emit('addTodoItem', this.newTodoItem, this.newTodoItemDetail);
-            this.$store.commit('addOneItem', {item:this.newTodoItem, detail:this.newTodoItemDetail});
-            this.clearInput();
-            this.$router.push({ path: 'list'});
-          } else {
-            this.showModal = !this.showModal;
-          }
-        },
-        clearInput() {
-          this.newTodoItem = '';
-          this.newTodoItemDetail = '';
+      // mapMutations 적용
+      ...mapMutations({
+        addTodoItem: 'addOneItem'
+      }),
+      addTodo() {
+        if(this.newTodoItem !== '' && this.newTodoItemDetail !== '') {
+          this.addTodoItem({item:this.newTodoItem, detail:this.newTodoItemDetail});
+          this.clearInput();
+          this.$router.push({ path: 'list'});
+        } else {
+          this.showModal = !this.showModal;
         }
+      },
+      clearInput() {
+        this.newTodoItem = '';
+        this.newTodoItemDetail = '';
+      }
     },
     
     components: {

@@ -1,9 +1,9 @@
 <template>
   <div>
       <transition-group name="list" tag="ul">
-        <li v-for="(todoItem, index) in this.$store.state.todoItems" v-bind:key="todoItem.item" class="shadow">
+        <li v-for="(todoItem, index) in this.getTodoItems" v-bind:key="todoItem.item" class="shadow">
           <i class="checkBtn fas fa-check-circle" 
-            v-on:click="toggleComplete(todoItem, index)"
+            v-on:click="toggleComplete({todoItem, index})"
           >
           </i>
           <!-- v-bind:class="{클래스명: boolean값을 갖는 변수}" 변수 값에 따라 클래스가 적용 처리 -->
@@ -11,7 +11,7 @@
             {{ todoItem.item }}
           </span>
           
-          <span class="removeBtn" v-on:click="removeTodo(todoItem, index)">
+          <span class="removeBtn" v-on:click="removeTodo({todoItem, index})">
             <i class="fas fa-trash"></i>
           </span>
 
@@ -38,7 +38,8 @@
 </template>
 
 <script>
-import Modal from './common/Modal.vue';
+import Modal from './common/Modal.vue'
+import { mapGetters, mapMutations } from 'vuex' // mapGetters, mapMutations 적용
 
 export default {
   components: {
@@ -54,20 +55,24 @@ export default {
   },
 
   methods: {
-    removeTodo(todoItem, index) {
-      // this.$emit('removeItem', todoItem, index);
-      this.$store.commit('removeOneItem', {todoItem, index});
-    },
-    toggleComplete(todoItem, index) {
-      // this.$emit('toggleItem', todoItem);
-      this.$store.commit('toggleOneItem', {todoItem, index});
-    },
+    // mapMutations 적용
+    ...mapMutations({
+      removeTodo: 'removeOneItem',
+      toggleComplete: 'toggleOneItem'
+    }),
     popModal(todoItem) {
       this.item = todoItem.item;
       this.detail = todoItem.detail;
       this.showModal = !this.showModal;
-    }
-  }
+    },
+  },
+
+  computed: {
+    // mapGetters 적용
+    ...mapGetters([
+      'getTodoItems'
+    ])
+  },
 }
 </script>
 
