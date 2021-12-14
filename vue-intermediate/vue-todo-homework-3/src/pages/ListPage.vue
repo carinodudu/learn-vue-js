@@ -10,7 +10,12 @@
       {{ this.getCompletedRatio }}% 
       </span>
     </div>
-    
+
+    <!-- 2.(2) 출력 적용 -->
+    <li v-for="day in this.getDayList" v-bind:key="day.date">
+      {{ day.date }} {{ day.description }}
+    </li>
+
     <router-link to="/register">할 일 등록</router-link>
 
     <TodoList></TodoList>
@@ -37,7 +42,9 @@ export default {
       'getRegisterItemCount',
       'getCompletedItemCount',
       'getCompletedRatio',
-      'getRatioTextColor'
+      'getRatioTextColor',
+      // 2.(2) getters로 state의 배열 접근
+      'getDayList'
     ])
   }
 }

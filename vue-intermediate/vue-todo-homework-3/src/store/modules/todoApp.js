@@ -74,6 +74,13 @@ const mutations = {
     removeOneItem(state, payload) {
         localStorage.removeItem(payload.todoItem.item);
         state.todoItems.splice(payload.index, 1);
+
+        // 2.(1) 삭제 후 alert 적용
+        if(localStorage.getItem(payload.todoItem.item) === null) {
+            alert('삭제 완료');
+        } else {
+            alert('삭제 실패');
+        }
     },
     toggleOneItem(state, payload) {
         state.todoItems[payload.index].completed = !state.todoItems[payload.index].completed;
@@ -86,8 +93,17 @@ const mutations = {
     }
 };
 
+const actions = {
+    // 2.(1) 2초후 삭제 적용
+    // mutations의 removeOneItem을 2초 후 실행 context객체의 commit으로 
+    delayRemoveOneItem({ commit }, payload) {
+        setTimeout(() => commit('removeOneItem', payload), 2000);
+    }
+};
+
 export default {
     state,
     getters,
     mutations,
+    actions
 }
