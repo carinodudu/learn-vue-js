@@ -11,11 +11,16 @@ export const store = new Vuex.Store({
         news: [],
         ask: [],
         jobs: [],
+        user: [],
+        askItem: [],
     },
     // 데이터 접근, state로 스테이트 접근
     getters: {
         fetchedAsk(state) {
             return state.ask;
+        },
+        fetchedAskItem(state) {
+            return state.askItem;
         },
     },
     // 데이터 접근, state로 스테이트 접근
