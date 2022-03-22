@@ -14,4 +14,7 @@ export default {
     SET_ASK_ITEM(state, askItem) {
         state.askItem = askItem;
     },
+    SET_MY(state, my) {
+        state.user = my;
+    },
 }
