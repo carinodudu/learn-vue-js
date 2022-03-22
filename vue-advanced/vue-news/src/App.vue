@@ -23,6 +23,18 @@ body {
   margin: 0;
 }
 
+a {
+  color: #34495e;
+  text-decoration: none;
+}
+a:hover {
+  color: #42B883;
+  text-decoration: underline;
+}
+a.router-link-exact-active {
+  text-decoration: underline;
+}
+
 /* Router Transition, https://vuejs.org/guide/built-ins/transition.html#css-based-transitions */
 .page-enter-active,
 .page-leave-active {

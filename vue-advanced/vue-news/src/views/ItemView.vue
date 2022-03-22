@@ -5,7 +5,7 @@
         <!-- 1.1. 사용자 정보 -->
         <div class="user-container">
           <div>
-            <i class="fa-regular fa-user"></i>
+            <i class="fa fa-regular fa-user"></i>
           </div>
           <div class="user-description">
             <router-link :to="`/user/${fetchedAskItem.user}`">
